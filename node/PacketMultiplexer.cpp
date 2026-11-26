@@ -113,7 +113,7 @@ void PacketMultiplexer::setUpPostDecodeReceiveThreads(unsigned int concurrency, 
 				MAC sourceMac = MAC(packet->source);
 				MAC destMac = MAC(packet->dest);
 
-				RR->node->putFrame(packet->tPtr, packet->nwid, packet->nuptr, sourceMac, destMac, packet->etherType, 0, (const void*)packet->data, packet->len);
+				RR->node->putFrame(packet->tPtr, packet->nwid, packet->nuptr, sourceMac, destMac, packet->etherType, packet->vlanId, (const void*)packet->data, packet->len);
 				{
 					Mutex::Lock l(_rxPacketVector_m);
 					_rxPacketVector.push_back(packet);

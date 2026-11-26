@@ -527,7 +527,10 @@ void Switch::onLocalEthernet(void* tPtr, const SharedPtr<Network>& network, cons
 		//
 		// same pattern as putFrame call above
 		//
-		std::thread([=]() { RR->node->putFrame(tPtr, network->id(), network->userPtr(), from, to, etherType, vlanId, data, len); }).detach();
+		// `data` belongs to the caller and is reused once we return, so the thread needs its own copy.
+		// ponytail: still one thread per frame; fine for this rare path, use a worker queue if it gets hot.
+		std::vector<uint8_t> frame((const uint8_t*)data, (const uint8_t*)data + len);
+		std::thread([=, frame = std::move(frame)]() { RR->node->putFrame(tPtr, network->id(), network->userPtr(), from, to, etherType, vlanId, frame.data(), (unsigned int)frame.size()); }).detach();
 	}
 	else if (to[0] == MAC::firstOctetForNetwork(network->id())) {
 		// Destination is another ZeroTier peer on the same network
