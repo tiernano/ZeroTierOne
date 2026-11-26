@@ -447,7 +447,6 @@ CMAKE_PREFIX_PATH. Build them, then re-run CMake pointing at the prefix:
     cmake -DZT1_CENTRAL_CONTROLLER=1 -DCMAKE_PREFIX_PATH="<prefix>" -S . -B build
 
 bootstrap-deps.sh prints the exact -DCMAKE_PREFIX_PATH to use when it finishes.
-See nonfree/controller/README_CENTRAL_CONTROLLER.md.
 ]=])
     endif()
 else()
