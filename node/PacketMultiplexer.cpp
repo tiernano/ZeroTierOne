@@ -12,8 +12,14 @@
 #include "Node.hpp"
 #include "RuntimeEnvironment.hpp"
 
+#include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
+#if defined(__linux__)
+#include <pthread.h>
+#include <sched.h>
+#include <string.h>
+#endif
 
 namespace ZeroTier {
 
@@ -75,8 +81,23 @@ void PacketMultiplexer::setUpPostDecodeReceiveThreads(unsigned int concurrency, 
 
 	// Each thread picks from its own queue to feed into the core
 	for (unsigned int i = 0; i < _concurrency; ++i) {
-		_rxThreads.push_back(std::thread([this, i]() {
+		_rxThreads.push_back(std::thread([this, i, cpuPinningEnabled]() {
 			fprintf(stderr, "Created post-decode packet ingestion thread %d\n", i);
+#if defined(__linux__)
+			if (cpuPinningEnabled) {
+				const unsigned int cpuCount = std::max(1u, std::thread::hardware_concurrency());
+				const int pinCore = static_cast<int>(i % cpuCount);
+				cpu_set_t cpuset;
+				CPU_ZERO(&cpuset);
+				CPU_SET(pinCore, &cpuset);
+				int rc = pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+				if (rc != 0) {
+					fprintf(stderr, "Failed to pin packet thread %d to core %d: %s\n", i, pinCore, strerror(rc));
+				}
+			}
+#else
+			(void)cpuPinningEnabled;
+#endif
 
 			PacketRecord* packet = nullptr;
 			for (;;) {
