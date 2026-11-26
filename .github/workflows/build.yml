@@ -3,6 +3,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build_ubuntu:
     runs-on: ubuntu-latest
@@ -45,7 +48,7 @@ jobs:
         retention-days: 7
 
   build_macos:
-    runs-on: macos-latest
+    runs-on: macos-15-intel  # arm64 macOS runners often unavailable to forks; make builds universal anyway
     steps:
     - name: gitconfig
       run: |
