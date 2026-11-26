@@ -1,5 +1,7 @@
 # ZeroTier - Global Area Networking
 
+> This is a fork of ZeroTierOne with the source-available `nonfree/` directory (the network controller) removed, so everything here except `ext/` is MPL-2.0. "ZeroTier" is a trademark of ZeroTier, Inc.; this fork is not affiliated with or endorsed by ZeroTier, Inc.
+
 ## Quick Links
 
 * [ZeroTier Documentation](https://docs.zerotier.com) - **Start here for downloads, installation, and usage**
@@ -7,7 +9,6 @@
 * [Corporate Site](https://www.zerotier.com/)
 * [Downloads](https://www.zerotier.com/download/)
 * [Service API Reference](service/README.md)
-* [Network Controller](nonfree/controller/README.md)
 * [Commercial Support](https://www.zerotier.com/contact)
 * [License Information](#license)
 
@@ -25,8 +26,8 @@ For repository layout, build instructions, platform requirements, and informatio
 
 ## License
 
-See [LICENSE-MPL.txt](LICENSE-MPL.txt) for all code in node/, osdep/. service/, and everywhere else except ext/ and nonfree/.
+See [LICENSE-MPL.txt](LICENSE-MPL.txt) for all code in node/, osdep/, service/, and everywhere else except ext/.
 
-See [nonfree/LICENSE.md](nonfree/LICENSE.md) for all non-free ("source available") portions of this repository.
+The upstream source-available `nonfree/` directory (network controller) is not included in this fork.
 
 Code in ext/ is external code included for build convenience or backward compatibility and retains its original license.

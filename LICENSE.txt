@@ -1,5 +1,5 @@
-See LICENSE-MPL.txt for all code in node/, osdep/. service/, and everywhere else except ext/ and nonfree/.
+All code in this repository except ext/ is licensed under the Mozilla Public License 2.0. See LICENSE-MPL.txt.
 
-See nonfree/LICENSE.md for all non-free ("source available") portions of this repository.
+The source-available nonfree/ directory (network controller) from upstream ZeroTierOne has been removed from this fork.
 
 Code in ext/ is external code included for build convenience or backward compatibility and retains its original license.

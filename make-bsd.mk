@@ -7,11 +7,6 @@ LIBS=
 include objects.mk
 ONE_OBJS+=osdep/BSDEthernetTap.o ext/http-parser/http_parser.o
 
-ifeq ($(ZT_NONFREE),1)
-	include objects-nonfree.mk
-	ONE_OBJS+=$(CONTROLLER_OBJS)
-	override DEFS += -DZT_NONFREE_CONTROLLER
-endif
 
 ifeq ($(OSTYPE),FreeBSD)
 	# Auto-detect miniupnpc and nat-pmp as well and use ports libs if present,
@@ -187,7 +182,7 @@ selftest:	$(CORE_OBJS) $(ONE_OBJS) selftest.o
 zerotier-selftest: selftest
 
 clean:
-	rm -rf *.a *.o node/*.o nonfree/controller/*.o osdep/*.o service/*.o ext/http-parser/*.o build-* zerotier-one zerotier-idtool zerotier-selftest zerotier-cli $(ONE_OBJS) $(CORE_OBJS)
+	rm -rf *.a *.o node/*.o osdep/*.o service/*.o ext/http-parser/*.o build-* zerotier-one zerotier-idtool zerotier-selftest zerotier-cli $(ONE_OBJS) $(CORE_OBJS)
 
 debug:	FORCE
 	$(MAKE) -j ZT_DEBUG=1

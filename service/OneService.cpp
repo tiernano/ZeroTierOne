@@ -132,13 +132,11 @@ extern "C" {
 
 using json = nlohmann::json;
 
-#include "../nonfree/controller/EmbeddedNetworkController.hpp"
-#include "../nonfree/controller/PostgreSQL.hpp"
-#include "../nonfree/controller/Redis.hpp"
-#ifdef ZT1_CENTRAL_CONTROLLER
-#include "../nonfree/controller/CentralDB.hpp"
-#include "../nonfree/controller/ControllerConfig.hpp"
-#endif
+// ponytail: nonfree/ controller removed from this fork; these stay opaque pointers that are always NULL.
+namespace ZeroTier {
+class EmbeddedNetworkController;
+struct RedisConfig;
+}	 // namespace ZeroTier
 #include "../osdep/EthernetTap.hpp"
 #ifdef __WINDOWS__
 #include "../osdep/WindowsEthernetTap.hpp"
@@ -1132,10 +1130,6 @@ class OneServiceImpl : public OneService {
 #ifdef ZT_USE_MINIUPNPC
 		delete _portMapper;
 #endif
-#ifdef ZT_NONFREE_CONTROLLER
-		delete _controller;
-#endif
-		delete _rc;
 	}
 
 	void setUpMultithreading()

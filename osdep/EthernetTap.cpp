@@ -17,7 +17,6 @@
 
 #include "../include/VirtualTap.hpp"
 #include "../node/Node.hpp"
-#include "../nonfree/controller/EmbeddedNetworkController.hpp"
 
 #else
 

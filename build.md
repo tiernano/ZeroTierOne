@@ -52,13 +52,10 @@ To build on Mac and Linux just type `make`. On FreeBSD and OpenBSD `gmake` (GNU 
 
   The script prints the exact `-DCMAKE_PREFIX_PATH` to use when it finishes.
 
-#### Free vs. default (non-free) builds
+#### Free builds
 
-By default the daemon is built **with the bundled FileDB network controller**, which lives
-under `nonfree/` and is "source available" (non-free) — this matches what ships in official
-builds (`ZT_NONFREE=ON`). To produce a **purely free** daemon (MPL-2.0 `node/`, `osdep/`,
-`service/` only, with no `nonfree/` code compiled or linked), set **`-DZT_NONFREE=OFF`** — or
-use one of the `*-free-*` presets, which set it for you.
+This fork does not include upstream's source-available `nonfree/` controller, so every build is a
+purely MPL-2.0 daemon with no bundled network controller.
 
 #### Using presets (recommended)
 
@@ -66,9 +63,8 @@ use one of the `*-free-*` presets, which set it for you.
 
 | Preset | Build |
 | --- | --- |
-| `macos-release` / `linux-release` | Default daemon (**includes** the non-free bundled controller) |
-| `macos-free-release` / `linux-free-release` | **Free** daemon (`ZT_NONFREE=OFF`, no non-free code) |
-| `macos-debug` / `linux-debug` (and `*-free-debug`) | Debug variants of the above |
+| `macos-release` / `linux-release` | Daemon |
+| `macos-debug` / `linux-debug` | Debug variants of the above |
 | `macos-universal-release` | macOS universal (arm64 + x86_64) daemon |
 | `freebsd-release` / `openbsd-release` / `netbsd-release` (and `*-free-release`, `*-debug`) | BSD daemon / free variant |
 | `windows-x64-release` (and `windows-x64-free`) | Windows daemon / free variant |
@@ -92,12 +88,8 @@ so the build type is baked into the preset name — there's no `Release/` subdir
 The equivalent without presets:
 
 ```bash
-# Default (non-free) daemon — .deps holds the OTel API from bootstrap-deps.sh:
+# .deps holds the OTel API from bootstrap-deps.sh:
 cmake -DCMAKE_PREFIX_PATH="$PWD/.deps" -S . -B build
-cmake --build build -j8
-
-# Purely free daemon:
-cmake -DZT_NONFREE=OFF -DCMAKE_PREFIX_PATH="$PWD/.deps" -S . -B build
 cmake --build build -j8
 ```
 
@@ -140,9 +132,7 @@ The repository is organized as follows:
 - **node/** - Core ZeroTier networking code
 - **osdep/** - Operating system dependent code  
 - **service/** - Service implementation and API
-- **controller/** - Network controller implementation
 - **ext/** - External code included for build convenience (retains original licenses)
-- **nonfree/** - Source available (non-free) portions
 - **windows/** - Windows-specific Visual Studio solution files
 
 ### Build System
@@ -157,5 +147,4 @@ The project supports various build targets and platforms:
 ### License Structure
 
 - **node/**, **osdep/**, **service/**: Licensed under MPL-2.0 (see LICENSE-MPL.txt)
-- **nonfree/**: Non-free "source available" code (see nonfree/LICENSE.md)
 - **ext/**: External code with original licenses retained

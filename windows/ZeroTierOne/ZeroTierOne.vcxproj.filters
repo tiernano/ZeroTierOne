@@ -79,18 +79,6 @@
     <Filter Include="Header Files\ext\cpp-httplib">
       <UniqueIdentifier>{4dfde4c7-2950-40ee-92f2-05e0916d36c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\nonfree">
-      <UniqueIdentifier>{87126f8c-5daf-46cb-9d94-36a6993fb058}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\nonfree\controller">
-      <UniqueIdentifier>{d05823b2-51ff-4383-ba81-2e7c53a30c0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\nonfree">
-      <UniqueIdentifier>{0f51b1ae-6141-41b8-b7a1-ac700e78b13d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\nonfree\controller">
-      <UniqueIdentifier>{50dfe57d-a749-40c2-ac5a-30614e56c424}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\service\OneService.cpp">
@@ -281,24 +269,6 @@
     </ClCompile>
     <ClCompile Include="..\..\node\ECC.cpp">
       <Filter>Source Files\node</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\nonfree\controller\CtlUtil.cpp">
-      <Filter>Source Files\nonfree\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\nonfree\controller\DB.cpp">
-      <Filter>Source Files\nonfree\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\nonfree\controller\DBMirrorSet.cpp">
-      <Filter>Source Files\nonfree\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\nonfree\controller\EmbeddedNetworkController.cpp">
-      <Filter>Source Files\nonfree\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\nonfree\controller\FileDB.cpp">
-      <Filter>Source Files\nonfree\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\nonfree\controller\PostgreSQL.cpp">
-      <Filter>Source Files\nonfree\controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -544,30 +514,6 @@
     </ClInclude>
     <ClInclude Include="..\..\node\Metrics.hpp">
       <Filter>Header Files\node</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nonfree\controller\ConnectionPool.hpp">
-      <Filter>Header Files\nonfree\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nonfree\controller\CtlUtil.hpp">
-      <Filter>Header Files\nonfree\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nonfree\controller\DB.hpp">
-      <Filter>Header Files\nonfree\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nonfree\controller\DBMirrorSet.hpp">
-      <Filter>Header Files\nonfree\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nonfree\controller\EmbeddedNetworkController.hpp">
-      <Filter>Header Files\nonfree\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nonfree\controller\FileDB.hpp">
-      <Filter>Header Files\nonfree\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nonfree\controller\PostgreSQL.hpp">
-      <Filter>Header Files\nonfree\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nonfree\controller\Redis.hpp">
-      <Filter>Header Files\nonfree\controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

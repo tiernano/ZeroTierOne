@@ -6,7 +6,10 @@ project(zerotier-one LANGUAGES CXX C)
 # ---------------------------------------------------------------------------
 # Options
 # ---------------------------------------------------------------------------
-option(ZT1_CENTRAL_CONTROLLER "Build with ZeroTier Central Controller support" OFF)
+# This fork does not include the source-available nonfree/ controller.
+if(ZT1_CENTRAL_CONTROLLER OR ZT_NONFREE)
+    message(FATAL_ERROR "ZT1_CENTRAL_CONTROLLER / ZT_NONFREE are unavailable: nonfree/ was removed from this fork.")
+endif()
 option(ADDRESS_SANITIZER "Build with Address Sanitizer enabled (only for x86_64/arm64)" OFF)
 option(EXT_OSDEP "Build with external osdep feature" OFF)
 option(ZT_IA32 "Force a 32-bit (i386) build on x86 hosts mismarked as i386" OFF)
@@ -294,17 +297,6 @@ if(WIN32 AND ZT1_CENTRAL_CONTROLLER)
         "(configure without -DZT1_CENTRAL_CONTROLLER).")
 endif()
 
-# ZT_NONFREE pulls in the bundled FileDB-based network controller -- the controller
-# that ships in official daemon builds. Mirrors make-linux.mk, where ZT_CONTROLLER=1
-# implies ZT_NONFREE=1; ZT1_CENTRAL_CONTROLLER is a superset that adds the Postgres/
-# PubSub/BigTable/Redis backends on top (handled inside nonfree/controller).
-option(ZT_NONFREE "Build the bundled FileDB network controller into the daemon (required by ZT1_CENTRAL_CONTROLLER)" ON)
-if(ZT1_CENTRAL_CONTROLLER)
-    set(ZT_NONFREE ON)
-endif()
-if(ZT_NONFREE)
-    add_definitions(-DZT_NONFREE_CONTROLLER=1)
-endif()
 
 if(ZT1_CENTRAL_CONTROLLER)
     add_definitions(
@@ -572,10 +564,6 @@ add_subdirectory(ext)
 add_subdirectory(node)
 add_subdirectory(osdep)
 add_subdirectory(service)
-# The bundled network controller is built only for ZT_NONFREE (official) builds.
-if(ZT_NONFREE)
-    add_subdirectory(nonfree)
-endif()
 
 # ---------------------------------------------------------------------------
 # Link libraries
@@ -596,11 +584,6 @@ if(ZT_NEED_OPENSSL)
     list(APPEND LINKED_LIBRARIES OpenSSL::Crypto OpenSSL::SSL)
 endif()
 
-# The bundled FileDB network controller (only built when ZT_NONFREE; central
-# backends are layered in under ZT1_CENTRAL_CONTROLLER inside the target).
-if(ZT_NONFREE)
-    list(APPEND LINKED_LIBRARIES zerotier-controller)
-endif()
 
 # Controller-only OpenTelemetry exporters.
 if(ZT1_CENTRAL_CONTROLLER)

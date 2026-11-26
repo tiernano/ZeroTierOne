@@ -1,1 +1,0 @@
-ALTER TABLE controllers_ctl ADD COLUMN IF NOT EXISTS use_for_new_networks boolean DEFAULT true NOT NULL;

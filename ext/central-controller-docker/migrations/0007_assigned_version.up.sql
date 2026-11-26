@@ -1,1 +1,0 @@
-ALTER TABLE controllers_ctl ADD COLUMN IF NOT EXISTS assigned_central_version text DEFAULT 'all' NOT NULL CONSTRAINT controllers_ctl_assigned_central_version_check CHECK (assigned_central_version IN ('cv1', 'cv2', 'all'));

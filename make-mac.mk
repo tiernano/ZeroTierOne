@@ -163,7 +163,7 @@ mac-dist-pkg: FORCE
 official: FORCE
 	cd ../DesktopUI ; make ZT_OFFICIAL_RELEASE=1
 	make clean
-	make ZT_OFFICIAL_RELEASE=1 -j 8 one ZT_NONFREE=1
+	make ZT_OFFICIAL_RELEASE=1 -j 8 one
 	make ZT_OFFICIAL_RELEASE=1 mac-dist-pkg
 
 _buildx:
@@ -177,7 +177,7 @@ docker-release:	_buildx
 	docker buildx build --platform linux/386,linux/amd64,linux/arm/v7,linux/arm64,linux/mips64le,linux/ppc64le,linux/s390x -t zerotier/zerotier:${RELEASE_DOCKER_TAG} -t zerotier/zerotier:latest --build-arg VERSION=${RELEASE_VERSION} -f Dockerfile.release . --push
 
 clean:
-	rm -rf MacEthernetTapAgent *.dSYM build-* *.a *.pkg *.dmg *.o node/*.o nonfree/controller/*.o service/*.o osdep/*.o ext/http-parser/*.o $(CORE_OBJS) $(ONE_OBJS) zerotier-one zerotier-idtool zerotier-selftest zerotier-cli zerotier doc/node_modules zt1_update_$(ZT_BUILD_PLATFORM)_$(ZT_BUILD_ARCHITECTURE)_* rustybits/target/
+	rm -rf MacEthernetTapAgent *.dSYM build-* *.a *.pkg *.dmg *.o node/*.o service/*.o osdep/*.o ext/http-parser/*.o $(CORE_OBJS) $(ONE_OBJS) zerotier-one zerotier-idtool zerotier-selftest zerotier-cli zerotier doc/node_modules zt1_update_$(ZT_BUILD_PLATFORM)_$(ZT_BUILD_ARCHITECTURE)_* rustybits/target/
 
 otel:
 	@echo "OpenTelemetry API headers are vendored (ext/opentelemetry-cpp-api-only); nothing to build."

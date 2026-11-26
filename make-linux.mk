@@ -18,11 +18,6 @@ ZT_CARGO_FLAGS?=
 
 include objects.mk
 
-ifeq ($(ZT_NONFREE),1)
-	include objects-nonfree.mk
-	ONE_OBJS+=$(CONTROLLER_OBJS)
-	override DEFS += -DZT_NONFREE_CONTROLLER
-endif
 
 ifeq ($(ZT_EXTOSDEP),1)
 	ONE_OBJS+=osdep/ExtOsdep.o
@@ -411,14 +406,14 @@ otel:
 ext/${OTEL_INSTALL_DIR}/include/opentelemetry/version.h: otel
 
 clean: FORCE
-	rm -rf *.a *.so *.o node/*.o nonfree/controller/*.o osdep/*.o service/*.o ext/http-parser/*.o ext/miniupnpc/*.o ext/libnatpmp/*.o $(CORE_OBJS) $(ONE_OBJS) zerotier-one zerotier-idtool zerotier-cli zerotier-selftest build-* ZeroTierOneInstaller-* *.deb *.rpm .depend debian/files debian/zerotier-one*.debhelper debian/zerotier-one.substvars debian/*.log debian/zerotier-one doc/node_modules ext/misc/*.o debian/.debhelper debian/debhelper-build-stamp docker/zerotier-one rustybits/target
+	rm -rf *.a *.so *.o node/*.o osdep/*.o service/*.o ext/http-parser/*.o ext/miniupnpc/*.o ext/libnatpmp/*.o $(CORE_OBJS) $(ONE_OBJS) zerotier-one zerotier-idtool zerotier-cli zerotier-selftest build-* ZeroTierOneInstaller-* *.deb *.rpm .depend debian/files debian/zerotier-one*.debhelper debian/zerotier-one.substvars debian/*.log debian/zerotier-one doc/node_modules ext/misc/*.o debian/.debhelper debian/debhelper-build-stamp docker/zerotier-one rustybits/target
 
 distclean:	clean
 
 realclean:	distclean
 
 official:	FORCE
-	make -j`nproc` ZT_OFFICIAL=1 ZT_NONFREE=1 all
+	make -j`nproc` ZT_OFFICIAL=1 all
 
 docker:	FORCE
 	docker build --no-cache -f ext/installfiles/linux/zerotier-containerized/Dockerfile -t zerotier-containerized .
